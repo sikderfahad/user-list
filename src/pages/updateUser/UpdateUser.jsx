@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import showToast from "../../hooks/showToast";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const UpdateUser = () => {
   const axiosSecure = useAxiosSecure();
@@ -44,6 +44,9 @@ const UpdateUser = () => {
 
   return (
     <div className="w-11/12 mx-auto h-screen flex items-center justify-center">
+      <Helmet>
+        <title>My users | Update user</title>
+      </Helmet>
       <div className="w-full md:w-2/3 lg:w-1/2 flex items-center justify-center mx-auto border rounded-lg p-5 md:p-10">
         <form
           onSubmit={handleSubmit(onSubmit)}

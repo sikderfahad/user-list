@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import showToast from "../../hooks/showToast";
 import { setTokenLS } from "../../hooks/setToken";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const axiosSecure = useAxiosSecure();
@@ -44,6 +45,10 @@ const Login = () => {
 
   return (
     <div className="w-11/12 mx-auto h-screen flex items-center justify-center">
+      <Helmet>
+        <title>My users | Login</title>
+      </Helmet>
+
       <div className="w-full md:w-2/3 lg:w-1/2 flex items-center justify-center mx-auto border rounded-lg p-5 md:p-10">
         <form
           onSubmit={handleSubmit(onSubmit)}

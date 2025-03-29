@@ -3,6 +3,7 @@ import UserRow from "./UserRow";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import SpinnerCircle from "../../components/spinnerCircle/SpinnerCircle";
+import { Helmet } from "react-helmet-async";
 
 const Users = () => {
   const axiosSecure = useAxiosSecure();
@@ -93,10 +94,13 @@ const Users = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>My users | Home</title>
+      </Helmet>
+
       <h1 className="text-4xl font-semibold text-center my-10">
         All users <sup className="text-green-600">({users.length})</sup>
       </h1>
-
       {/* Search Input */}
       <div className="flex justify-center my-4">
         <input
@@ -107,7 +111,6 @@ const Users = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
-
       <div className="overflow-x-auto">
         <table className="table">
           {/* Table Head */}
@@ -131,7 +134,6 @@ const Users = () => {
           </tbody>
         </table>
       </div>
-
       {/* Loading Spinner at the bottom */}
       {loading && (
         <div className="flex justify-center my-5">
