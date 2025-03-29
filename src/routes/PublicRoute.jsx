@@ -1,9 +1,10 @@
 import React from "react";
-import { useAuth } from "../provider/AuthProvider";
 import { Navigate } from "react-router-dom";
+import { getTokenLS } from "../hooks/setToken";
 
+// Hidden public element/route while logged in
 const PublicRoute = ({ children }) => {
-  const { token } = useAuth();
+  const { token } = getTokenLS();
 
   if (token) {
     return <Navigate to={"/"} />;

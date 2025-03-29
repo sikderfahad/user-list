@@ -1,21 +1,15 @@
 import React from "react";
-import { useAuth } from "../provider/AuthProvider";
-import SpinnerCircle from "../components/spinnerCircle/SpinnerCircle";
 import { Navigate, useLocation } from "react-router-dom";
-import { clearToken } from "../hooks/setToken";
+import { clearToken, getTokenLS } from "../hooks/setToken";
 
+// Prevent access private content/route before login
 const PrivateRoute = ({ children }) => {
   const location = useLocation();
-  const { user, loading } = useAuth();
+  const { token, expiryTime } = getTokenLS();
   const now = new Date().getTime();
-  const expiryTime = Number(localStorage.getItem("tokenExpiry"));
-  const token = localStorage.getItem("authToken");
+  const expired = now > expiryTime;
 
-  if (loading) {
-    return <SpinnerCircle />;
-  }
-  console.log(user, token, expiryTime);
-  if (!user || !token || (expiryTime && now > expiryTime)) {
+  if (!token || expired) {
     clearToken();
     return (
       <Navigate

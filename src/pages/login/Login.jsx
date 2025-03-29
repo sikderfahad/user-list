@@ -4,14 +4,12 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import showToast from "../../hooks/showToast";
-import { setToken } from "../../hooks/setToken";
-import { useAuth } from "../../provider/AuthProvider";
+import { setTokenLS } from "../../hooks/setToken";
 
 const Login = () => {
   const axiosSecure = useAxiosSecure();
   const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
-  const { setLoading, setUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -19,22 +17,22 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    setLoading(true);
     try {
       const res = await axiosSecure.post("/api/login", data);
       const token = res?.data?.token;
+
       if (!token) {
-        setLoading(false);
         return showToast("Authentication failed!", "error");
       }
-      setToken(token);
+
+      setTokenLS(token);
+
       navigate("/", { replace: true });
       showToast("Welcome back!");
-      setUser(data?.email);
-      setLoading(false);
-      console.log(res?.data);
     } catch (error) {
       console.error(error);
+
+      // Handle potential errors
       const netError = error?.message.includes("Network Error");
       const userNotFound =
         error?.response?.data?.error.includes("user not found");
