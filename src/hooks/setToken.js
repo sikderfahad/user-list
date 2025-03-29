@@ -1,6 +1,6 @@
 // Set token in Local storage
 const setTokenLS = (token) => {
-  const expiredTime = new Date().getTime() + 60 * 1000;
+  const expiredTime = new Date().getTime() + 60 * 60 * 1000;
   localStorage.setItem("authToken", token);
   localStorage.setItem("tokenExpiry", expiredTime);
 };
